@@ -31,8 +31,25 @@ namespace MyWishingWell.Controllers
         [HttpGet]
         public ActionResult<List<WishListItem>> GetWishlist()
         {
-            User user = _userRepository.GetBy(User.Identity.Name);
+            User user = _userRepository.GetByEmail(User.Identity.Name);
             return user.WishList;
+        }
+
+        /// <summary>
+        /// Get the item with given id
+        /// </summary>
+        /// <param name="id">the id of the item</param>
+        /// <returns>The item</returns>
+        [HttpGet("{id}")]
+        public ActionResult<WishListItem> GetWishlistItem(int id)
+        {
+            User user = _userRepository.GetByEmail(User.Identity.Name);
+            if (user == null)
+            {
+                return NotFound();
+            }
+            var item = user.WishList.SingleOrDefault(r => r.WishListItemId == id);
+            return item;
         }
 
         /// <summary>
@@ -42,7 +59,7 @@ namespace MyWishingWell.Controllers
         [HttpDelete("{id}")]
         public ActionResult<List<WishListItem>> DeleteWishListItem(int id)
         {
-            User user = _userRepository.GetBy(User.Identity.Name);
+            User user = _userRepository.GetByEmail(User.Identity.Name);
             if (user == null)
             {
                 return NotFound();
@@ -61,16 +78,20 @@ namespace MyWishingWell.Controllers
         [HttpPost]
         public ActionResult<List<WishListItem>> PostWishListItem(WishListItemDTO WishListItem)
         {
-            User user = _userRepository.GetBy(User.Identity.Name);
+            User user = _userRepository.GetByEmail(User.Identity.Name);
             if (user == null)
             {
                 return NotFound();
             }
-            var WishListItemToCreate = new WishListItem(WishListItem.WishListItemName, WishListItem.Link);
+
+            var WishListItemToCreate = new WishListItem(WishListItem.WishListItemName, WishListItem.WishListItemLink, WishListItem.WishListItemDescription);
             user.WishList.Add(WishListItemToCreate);
             _userRepository.Update(user);
             _userRepository.SaveChanges();
             return user.WishList;
         }
+
+
+      
     }
 }

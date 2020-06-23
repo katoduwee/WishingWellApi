@@ -20,7 +20,6 @@ namespace MyWishingWell.Data.Mappers
                 .IsRequired()
                 .HasForeignKey("UserId"); //Shadow property
             builder.Property(c => c.UserName).IsRequired().HasMaxLength(50);
-            builder.Property(c => c.BirthDate).IsRequired();
             builder.Property(c => c.Email).IsRequired().HasMaxLength(100);
         }
     }

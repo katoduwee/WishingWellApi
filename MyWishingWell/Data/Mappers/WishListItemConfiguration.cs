@@ -15,7 +15,7 @@ namespace MyWishingWell.Data.Mappers
             builder.HasKey(p => p.WishListItemId);
             builder.Property(p => p.WishListItemId).ValueGeneratedOnAdd();
             builder.Property(r => r.WishListItemName).IsRequired().HasMaxLength(50);
-            builder.Property(r => r.Link).IsRequired();
+            builder.Property(r => r.WishListItemLink).IsRequired();
         }
     }
 }

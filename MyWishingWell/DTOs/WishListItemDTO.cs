@@ -9,6 +9,8 @@ namespace MyWishingWell.DTOs
     {
         public string WishListItemName { get; set; }
 
-        public string Link { get; set; }
+        public string WishListItemLink { get; set; }
+
+        public string WishListItemDescription { get; set; }
     }
 }

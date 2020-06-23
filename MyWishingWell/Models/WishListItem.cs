@@ -9,14 +9,12 @@ namespace MyWishingWell.Models
     {
         #region Fields
         private string _wishListItemname;
-        private string _link;
-        //private string _photo;
+        private string _wisListItemlink;
         #endregion
-
 
         #region Properties
         public int WishListItemId { get; set; }
-        public string Description { get; set; }
+        public string WishListItemDescription { get; set; }
 
         public string WishListItemName
         {
@@ -27,24 +25,24 @@ namespace MyWishingWell.Models
             set
             {
                 if (string.IsNullOrWhiteSpace(value))
-                    throw new ArgumentException("Please enter a WishListItemname");
+                    throw new ArgumentException("Please enter a name for the item");
                 else
                     _wishListItemname = value;
             }
         }
 
-        public string Link
+        public string WishListItemLink
         {
             get
             {
-                return _link;
+                return _wisListItemlink;
             }
             set
             {
                 if (string.IsNullOrWhiteSpace(value))
-                    throw new ArgumentException("Please enter a link");
+                    throw new ArgumentException("Please enter a link for the item");
                 else
-                    _link = value;
+                    _wisListItemlink = value;
             }
         }
 
@@ -58,8 +56,8 @@ namespace MyWishingWell.Models
         public WishListItem(string name, string link, string description) : this()
         {
             WishListItemName = name;
-            Link = link;
-            Description = description;
+            WishListItemLink = link;
+            WishListItemDescription = description;
         }
 
         #endregion

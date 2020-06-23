@@ -23,10 +23,10 @@ namespace MyWishingWell.Data
             _dbContext.Database.EnsureDeleted();
             if (_dbContext.Database.EnsureCreated())
             {
-                User user1 = new User { Email = "user1@hogent.be", UserName = "jane_doe", BirthDate = new DateTime(1991, 3, 11) };
+                User user1 = new User { Email = "user1@hogent.be", UserName = "jane_doe"};
                 _dbContext.AppUsers.Add(user1);
                 await CreateUser(user1.Email, "P@ssword1111");
-                User user2 = new User { Email = "user2@hogent.be", UserName = "john_doe", BirthDate = new DateTime(1995, 5, 8)};
+                User user2 = new User { Email = "user2@hogent.be", UserName = "john_doe" };
                 _dbContext.AppUsers.Add(user2);
                 await CreateUser(user2.Email, "P@ssword1111");
                 _dbContext.SaveChanges();

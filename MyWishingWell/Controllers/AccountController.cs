@@ -103,9 +103,9 @@ namespace MyWishingWell.Controllers
         /// <param name="email">Email.</param>/
         [AllowAnonymous]
         [HttpGet("username")]
-        public async Task<ActionResult<bool>> CheckAvailableUsername(string username)
+        public bool CheckAvailableUsername(string username)
         {
-            var user = await _userRepository.(username);
+            var user = _userRepository.GetByUsername(username);
             return user == null;
         }
 
