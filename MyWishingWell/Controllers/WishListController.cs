@@ -91,7 +91,35 @@ namespace MyWishingWell.Controllers
             return user.WishList;
         }
 
+        /// <summary>
+        /// Give all users you searched for
+        /// </summary>
+        /// <returns>All users which email contains partOfEmail</returns>
+        [HttpGet("AllUsers/{partOfEmail}")]
+        public IEnumerable<string> GetAllUsers(string partOfEmail)
+        {
+            if (string.IsNullOrWhiteSpace(partOfEmail))
+            {
+                return new List<string>();
+            }
+            else
+            {
+                IEnumerable<string> allUsers =
+                _userRepository.GetAll().Where(u => u.Email.Contains(partOfEmail)).Select(u => u.Email).ToList();
+                return allUsers;
+            }
+        }
 
-      
+        /// <summary>
+        /// View wishlist from another user
+        /// </summary>
+        /// <param></param>
+        [HttpGet("{email}")]
+        public ActionResult<UserDTO> GetWishlistFromOtherUser(string email)
+        {
+            User user = _userRepository.GetByEmail(email);
+            UserDTO userDto = new UserDTO { Email = user.Email, WishList = user.WishList, UserName = user.UserName };
+            return userDto;
+        }
     }
 }

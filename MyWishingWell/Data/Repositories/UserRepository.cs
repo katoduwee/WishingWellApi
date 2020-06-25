@@ -39,10 +39,9 @@ namespace MyWishingWell.Data.Repositories
                 .SingleOrDefault(c => c.Email == email);
         }
 
-        public User GetByUsername(string username)
+        public IEnumerable<User> GetAll()
         {
-            return _users.Include(c => c.WishList)
-                .SingleOrDefault(c => c.UserName == username);
+            return _users.OrderBy(u => u.Email);
         }
     }
 }

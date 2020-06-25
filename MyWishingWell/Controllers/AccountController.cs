@@ -69,16 +69,20 @@ namespace MyWishingWell.Controllers
         [HttpPost("register")]
         public async Task<ActionResult<string>> Register(RegisterDTO model)
         {
-            IdentityUser user = new IdentityUser { UserName = model.Email, Email = model.Email };
-            User appUser = new User { Email = model.Email, UserName = model.UserName };
-            var result = await _userManager.CreateAsync(user, model.Password);
-
-            if (result.Succeeded)
+            var emailAvalable = await CheckAvailableEmail(model.Email);
+            if (emailAvalable.Value)
             {
-                _userRepository.Add(appUser);
-                _userRepository.SaveChanges();
-                string token = GetToken(user);
-                return Created("", token);
+                IdentityUser user = new IdentityUser { UserName = model.Email, Email = model.Email };
+                User appUser = new User { Email = model.Email, UserName = model.UserName };
+                var result = await _userManager.CreateAsync(user, model.Password);
+
+                if (result.Succeeded)
+                {
+                    _userRepository.Add(appUser);
+                    _userRepository.SaveChanges();
+                    string token = GetToken(user);
+                    return Created("", token);
+                }
             }
             return BadRequest();
         }
@@ -93,19 +97,6 @@ namespace MyWishingWell.Controllers
         public async Task<ActionResult<bool>> CheckAvailableEmail(string email)
         {
             var user = await _userManager.FindByNameAsync(email);
-            return user == null;
-        }
-
-        /// <summary>
-        /// Checks if a username is available
-        /// </summary>
-        /// <returns>true if the username is not registered yet</returns>
-        /// <param name="email">Email.</param>/
-        [AllowAnonymous]
-        [HttpGet("username")]
-        public bool CheckAvailableUsername(string username)
-        {
-            var user = _userRepository.GetByUsername(username);
             return user == null;
         }
 

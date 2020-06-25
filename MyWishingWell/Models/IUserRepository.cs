@@ -8,7 +8,7 @@ namespace MyWishingWell.Models
     public interface IUserRepository
     {
         User GetByEmail(string email);
-        User GetByUsername(string username);
+        IEnumerable<User> GetAll();
         void Add(User user);
         void Update(User user);
         void SaveChanges();

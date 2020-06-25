@@ -11,7 +11,6 @@ namespace MyWishingWell.Models
         #region Fields
         private string _email;
         private string _username;
-        //private string _photo;
         #endregion
 
         #region Properties
