@@ -126,7 +126,18 @@ namespace MyWishingWell.Controllers
         public ActionResult<UserDTO> GetUser()
         {
             User user = _userRepository.GetByEmail(User.Identity.Name);
-            return new UserDTO(user);
+            var userDTO = new UserDTO()
+            {
+                Email = user.Email,
+                UserName = user.UserName,
+                WishList = user.WishList.Select(item => new WishListItemDTO()
+                {
+                    WishListItemName = item.WishListItemName,
+                    WishListItemLink = item.WishListItemDescription,
+                    WishListItemDescription = item.WishListItemLink
+                }).ToList() 
+            };
+            return userDTO;
         }
     }
 }

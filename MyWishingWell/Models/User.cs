@@ -69,8 +69,5 @@ namespace MyWishingWell.Models
         }
 
         #endregion
-
-
-
     }
 }

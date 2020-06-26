@@ -12,15 +12,7 @@ namespace MyWishingWell.DTOs
 
         public string Email { get; set; }
 
-        public ICollection<WishListItem> WishList { get; set; }
+        public List<WishListItemDTO> WishList { get; set; }
 
-        public UserDTO() { }
-
-        public UserDTO(User user) : this()
-        {
-            UserName = user.UserName;
-            Email = user.Email;
-            WishList = user.WishList;
-        }
     }
 }
