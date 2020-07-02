@@ -78,7 +78,7 @@ namespace MyWishingWell
             services.Configure<IdentityOptions>(options =>
             {
                 // Password settings.
-                options.Password.RequiredLength = 1;
+                options.Password.RequiredLength = 10;
                 options.Password.RequiredUniqueChars = 1;
                 options.Password.RequireDigit = false;
                 options.Password.RequireUppercase = false;

@@ -25,50 +25,33 @@ namespace MyWishingWell.Controllers
         }
 
         /// <summary>
-        /// Get wishlist
-        /// </summary>
-        /// <param></param>
-        [HttpGet]
-        public ActionResult<List<WishListItem>> GetWishlist()
-        {
-            User user = _userRepository.GetByEmail(User.Identity.Name);
-            return user.WishList;
-        }
-
-        /// <summary>
-        /// Get the item with given id
-        /// </summary>
-        /// <param name="id">the id of the item</param>
-        /// <returns>The item</returns>
-        [HttpGet("{id}")]
-        public ActionResult<WishListItem> GetWishlistItem(int id)
-        {
-            User user = _userRepository.GetByEmail(User.Identity.Name);
-            if (user == null)
-            {
-                return NotFound();
-            }
-            var item = user.WishList.SingleOrDefault(r => r.WishListItemId == id);
-            return item;
-        }
-
-        /// <summary>
         /// Deletes a WishListItem from the wishlist
         /// </summary>
-        /// <param name="id">the id of the WishListItem to be deleted</param>
-        [HttpDelete("{id}")]
-        public ActionResult<List<WishListItem>> DeleteWishListItem(int id)
+        /// <param name="id">the link of the WishListItem to be deleted</param>
+        [HttpDelete("{link}")]
+        public ActionResult<UserDTO> DeleteWishListItem(string link)
         {
             User user = _userRepository.GetByEmail(User.Identity.Name);
             if (user == null)
             {
                 return NotFound();
             }
-            var itemToRemove = user.WishList.SingleOrDefault(r => r.WishListItemId == id);
+            var itemToRemove = user.WishList.SingleOrDefault(r => r.WishListItemLink == link);
             user.WishList.Remove(itemToRemove);
             _userRepository.Update(user);
             _userRepository.SaveChanges();
-            return user.WishList;
+            var userDTO = new UserDTO()
+            {
+                Email = user.Email,
+                UserName = user.UserName,
+                WishList = user.WishList.Select(item => new WishListItemDTO()
+                {
+                    WishListItemName = item.WishListItemName,
+                    WishListItemLink = item.WishListItemDescription,
+                    WishListItemDescription = item.WishListItemLink
+                }).ToList()
+            };
+            return userDTO;
         }
 
         /// <summary>
@@ -76,7 +59,7 @@ namespace MyWishingWell.Controllers
         /// </summary>
         /// <param name="WishListItem">the WishListItem to be added</param>
         [HttpPost]
-        public ActionResult<List<WishListItem>> PostWishListItem(WishListItemDTO WishListItem)
+        public ActionResult<UserDTO> PostWishListItem(WishListItemDTO WishListItem)
         {
             User user = _userRepository.GetByEmail(User.Identity.Name);
             if (user == null)
@@ -88,7 +71,18 @@ namespace MyWishingWell.Controllers
             user.WishList.Add(WishListItemToCreate);
             _userRepository.Update(user);
             _userRepository.SaveChanges();
-            return user.WishList;
+            var userDTO = new UserDTO()
+            {
+                Email = user.Email,
+                UserName = user.UserName,
+                WishList = user.WishList.Select(item => new WishListItemDTO()
+                {
+                    WishListItemName = item.WishListItemName,
+                    WishListItemLink = item.WishListItemDescription,
+                    WishListItemDescription = item.WishListItemLink
+                }).ToList()
+            };
+            return userDTO;
         }
 
         /// <summary>
@@ -96,7 +90,7 @@ namespace MyWishingWell.Controllers
         /// </summary>
         /// <returns>All users which email contains partOfEmail</returns>
         [HttpGet("AllUsers/{partOfEmail}")]
-        public IEnumerable<string> GetAllUsers(string partOfEmail)
+        public IEnumerable<string> GetAllUsersContainingPartOfEmail(string partOfEmail)
         {
             if (string.IsNullOrWhiteSpace(partOfEmail))
             {
@@ -104,9 +98,11 @@ namespace MyWishingWell.Controllers
             }
             else
             {
-                IEnumerable<string> allUsers =
+                IList<string> allUsersYouSearchedFor =
                 _userRepository.GetAll().Where(u => u.Email.Contains(partOfEmail)).Select(u => u.Email).ToList();
-                return allUsers;
+                User user = _userRepository.GetByEmail(User.Identity.Name);
+                allUsersYouSearchedFor.Remove(user.Email);
+                return allUsersYouSearchedFor;
             }
         }
 
