@@ -133,8 +133,8 @@ namespace MyWishingWell.Controllers
                 WishList = user.WishList.Select(item => new WishListItemDTO()
                 {
                     WishListItemName = item.WishListItemName,
-                    WishListItemLink = item.WishListItemDescription,
-                    WishListItemDescription = item.WishListItemLink
+                    WishListItemLink = item.WishListItemLink,
+                    WishListItemDescription = item.WishListItemDescription
                 }).ToList() 
             };
             return userDTO;
