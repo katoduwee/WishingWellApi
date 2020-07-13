@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace MyWishingWell.Migrations
 {
-    public partial class InitialCreate : Migration
+    public partial class final : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -15,8 +15,7 @@ namespace MyWishingWell.Migrations
                     UserId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Email = table.Column<string>(maxLength: 100, nullable: false),
-                    UserName = table.Column<string>(maxLength: 50, nullable: false),
-                    BirthDate = table.Column<DateTime>(nullable: false)
+                    UserName = table.Column<string>(maxLength: 50, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -68,8 +67,9 @@ namespace MyWishingWell.Migrations
                 {
                     WishListItemId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    WishListItemDescription = table.Column<string>(nullable: true),
                     WishListItemName = table.Column<string>(maxLength: 50, nullable: false),
-                    Link = table.Column<string>(nullable: true),
+                    WishListItemLink = table.Column<string>(nullable: false),
                     UserId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>

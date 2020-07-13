@@ -186,8 +186,6 @@ namespace MyWishingWell.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTime>("BirthDate");
-
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasMaxLength(100);
@@ -207,10 +205,12 @@ namespace MyWishingWell.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Link")
-                        .IsRequired();
-
                     b.Property<int>("UserId");
+
+                    b.Property<string>("WishListItemDescription");
+
+                    b.Property<string>("WishListItemLink")
+                        .IsRequired();
 
                     b.Property<string>("WishListItemName")
                         .IsRequired()
