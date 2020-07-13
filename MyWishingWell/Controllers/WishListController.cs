@@ -67,7 +67,7 @@ namespace MyWishingWell.Controllers
                 return NotFound();
             }
 
-            var WishListItemToCreate = new WishListItem(WishListItem.WishListItemName, WishListItem.WishListItemLink, WishListItem.WishListItemDescription);
+            var WishListItemToCreate = new WishListItem(WishListItem.WishListItemLink, WishListItem.WishListItemName, WishListItem.WishListItemDescription);
             user.WishList.Add(WishListItemToCreate);
             _userRepository.Update(user);
             _userRepository.SaveChanges();

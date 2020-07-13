@@ -53,10 +53,10 @@ namespace MyWishingWell.Models
         {
         }
 
-        public WishListItem(string name, string link, string description) : this()
+        public WishListItem(string link, string name, string description) : this()
         {
-            WishListItemName = name;
             WishListItemLink = link;
+            WishListItemName = name;
             WishListItemDescription = description;
         }
 
