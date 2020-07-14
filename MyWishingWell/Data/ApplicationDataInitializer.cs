@@ -65,7 +65,8 @@ namespace MyWishingWell.Data
                 _dbContext.SaveChanges();
 
                 WishListItem wish2_jef = new WishListItem(
-                "https://www.bol.com/nl/p/luminarc-diwali-zwart-servies-set-19-delig-opaal/9300000000244441/?bltgh=htPB2Prax3FpYe-k3lxCag.1_4.5.ProductImage", "The child From The Mandolorian",
+                "https://www.bol.com/nl/p/luminarc-diwali-zwart-servies-set-19-delig-opaal/9300000000244441/?bltgh=htPB2Prax3FpYe-k3lxCag.1_4.5.ProductImage", 
+                "Servies",
                   "47 euro zwart servies");
                 jef.WishList.Add(wish2_jef);
                 _dbContext.SaveChanges();
