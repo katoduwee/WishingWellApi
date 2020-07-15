@@ -28,15 +28,15 @@ namespace MyWishingWell.Controllers
         /// Deletes a WishListItem from the wishlist
         /// </summary>
         /// <param name="id">the link of the WishListItem to be deleted</param>
-        [HttpDelete("{link}")]
-        public ActionResult<UserDTO> DeleteWishListItem(string link)
+        [HttpDelete("{id}")]
+        public ActionResult<UserDTO> DeleteWishListItem(int id)
         {
             User user = _userRepository.GetByEmail(User.Identity.Name);
             if (user == null)
             {
                 return NotFound();
             }
-            var itemToRemove = user.WishList.SingleOrDefault(r => r.WishListItemLink == link);
+            var itemToRemove = user.WishList.SingleOrDefault(r => r.WishListItemId == id);
             user.WishList.Remove(itemToRemove);
             _userRepository.Update(user);
             _userRepository.SaveChanges();
@@ -46,6 +46,7 @@ namespace MyWishingWell.Controllers
                 UserName = user.UserName,
                 WishList = user.WishList.Select(item => new WishListItemDTO()
                 {
+                    WishListItemId = item.WishListItemId,
                     WishListItemLink = item.WishListItemLink,
                     WishListItemName = item.WishListItemName,
                     WishListItemDescription = item.WishListItemDescription
@@ -59,7 +60,7 @@ namespace MyWishingWell.Controllers
         /// </summary>
         /// <param name="WishListItem">the WishListItem to be added</param>
         [HttpPost]
-        public ActionResult<UserDTO> PostWishListItem(WishListItemDTO WishListItem)
+        public ActionResult<UserDTO> PostWishListItem(WishListItemNoIdDTO WishListItem)
         {
             User user = _userRepository.GetByEmail(User.Identity.Name);
             if (user == null)
@@ -77,6 +78,7 @@ namespace MyWishingWell.Controllers
                 UserName = user.UserName,
                 WishList = user.WishList.Select(item => new WishListItemDTO()
                 {
+                    WishListItemId = item.WishListItemId,
                     WishListItemLink = item.WishListItemLink,
                     WishListItemName = item.WishListItemName,
                     WishListItemDescription = item.WishListItemDescription
@@ -120,6 +122,7 @@ namespace MyWishingWell.Controllers
                 UserName = user.UserName,
                 WishList = user.WishList.Select(item => new WishListItemDTO()
                 {
+                    WishListItemId = item.WishListItemId,
                     WishListItemLink = item.WishListItemLink,
                     WishListItemName = item.WishListItemName,
                     WishListItemDescription = item.WishListItemDescription
