@@ -79,7 +79,7 @@ namespace MyWishingWell
             {
                 // Password settings.
                 options.Password.RequiredLength = 10;
-                options.Password.RequiredUniqueChars = 1;
+                options.Password.RequiredUniqueChars = 0;
                 options.Password.RequireDigit = false;
                 options.Password.RequireUppercase = false;
                 options.Password.RequireNonAlphanumeric = false;

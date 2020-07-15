@@ -8,11 +8,13 @@ namespace MyWishingWell.DTOs
 {
     public class LoginDTO
     {
-        [Required]
+        [Required(ErrorMessage = "Please provide an emailaddress")]
         [EmailAddress]
+        [RegularExpression(@"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$", ErrorMessage = "Please provide a valid emailaddress")]
         public string Email { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Please provide a password")]
+        [RegularExpression(".{10,}", ErrorMessage = "Password is at least 10 characters long")]
         public string Password { get; set; }
     }
 }
