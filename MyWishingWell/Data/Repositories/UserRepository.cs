@@ -43,5 +43,11 @@ namespace MyWishingWell.Data.Repositories
         {
             return _users.OrderBy(u => u.Email);
         }
+
+        public void Remove(string email)
+        {
+            var user = _users.SingleOrDefault(c => c.Email == email);
+            _users.Remove(user);
+        }
     }
 }

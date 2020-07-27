@@ -10,6 +10,7 @@ namespace MyWishingWell.Models
         User GetByEmail(string email);
         IEnumerable<User> GetAll();
         void Add(User user);
+        void Remove(string email);
         void Update(User user);
         void SaveChanges();
     }

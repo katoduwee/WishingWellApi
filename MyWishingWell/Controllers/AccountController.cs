@@ -140,5 +140,16 @@ namespace MyWishingWell.Controllers
             };
             return userDTO;
         }
+
+        [HttpPost("delete")]
+        public async Task<ActionResult<string>> DeleteUserAsync()
+        {
+            User user = _userRepository.GetByEmail(User.Identity.Name);
+            _userRepository.Remove(user.Email);
+            IdentityUser identitityUser = await _userManager.FindByNameAsync(user.Email);
+            await _userManager.DeleteAsync(identitityUser);
+
+            return Ok();
+        }
     }
 }

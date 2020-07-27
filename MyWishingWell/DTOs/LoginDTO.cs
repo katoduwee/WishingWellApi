@@ -10,7 +10,7 @@ namespace MyWishingWell.DTOs
     {
         [Required(ErrorMessage = "Please provide an emailaddress")]
         [EmailAddress]
-        [RegularExpression(@"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$", ErrorMessage = "Please provide a valid emailaddress")]
+       // [RegularExpression(@"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$", ErrorMessage = "Please provide a valid emailaddress")]
         public string Email { get; set; }
 
         [Required(ErrorMessage = "Please provide a password")]
