@@ -6,7 +6,6 @@ using Microsoft.IdentityModel.Tokens;
 using MyWishingWell.DTOs;
 using MyWishingWell.Models;
 using System;
-using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
